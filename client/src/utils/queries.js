@@ -57,7 +57,7 @@ export const QUERY_EXPENSES  = gql`
     }
 `;
 
-export const QUERY_EXPESNE  = gql`
+export const QUERY_EXPENSE  = gql`
     query expense($id: ID!){
         expense(_id: $id) {
             _id
