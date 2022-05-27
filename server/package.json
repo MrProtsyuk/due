@@ -20,6 +20,6 @@
     "faker": "^6.6.6",
     "graphql": "^16.5.0",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^6.3.4"
+    "mongoose": "^5.9.10"
   }
 }
