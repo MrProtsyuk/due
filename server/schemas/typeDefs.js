@@ -10,8 +10,8 @@ const typeDefs = gql`
     _id: ID
     username: String
     email: String
-    userCategory: [categorySchema]
-    userExpenses: [expensesSchema]
+    userCategory: [Category]
+    userExpenses: [Expenses]
   }
 
   type Expenses {
