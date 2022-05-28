@@ -5,10 +5,10 @@
   "main": "index.js",
   "scripts": {
     "start": "node server/server.js",
-    "build": "cd client && npm run build", 
+    "build": "cd client && npm run build",
     "develop": "concurrently \"cd server && npm run watch\" \"cd client && npm start\"",
     "install": "cd server && npm i && cd ../client && npm i",
-    "seed": "cd server && npm run seed"  
+    "seed": "cd server && npm run seed"
   },
   "repository": {
     "type": "git",
@@ -20,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/MrProtsyuk/due/issues"
   },
-  "homepage": "https://github.com/MrProtsyuk/due#readme"
+  "homepage": "https://github.com/MrProtsyuk/due#readme",
+  "dependencies": {
+    "concurrently": "^7.2.1"
+  }
 }
