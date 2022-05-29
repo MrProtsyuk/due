@@ -10,7 +10,8 @@ const typeDefs = gql`
     _id: ID
     username: String
     email: String
-    expenses: [Expenses]
+    userCategory: [Category]
+    userExpenses: [Expenses]
   }
 
   type Expenses {
@@ -23,7 +24,8 @@ const typeDefs = gql`
   }
 
   type Query {
-    categories: [Category]
+    me: User
+    categories (name: String!): [Category]
     users: [User]
     user(username: String!): User
     expenses(username: String): [Expenses]
