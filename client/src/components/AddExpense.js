@@ -1,15 +1,36 @@
 import React, { useState } from 'react'
 
 export default function AddExpense() {
-    // Set state for radio in add-expense overlay
-    const [recurring, setRecurring] = useState('yes');
+    const [formState, setFormState] = useState({ description: '', category: '', amount: '', link: '', date: '', recurring: 'yes' });
 
+    // update state based on form input changes
     const handleChange = (e) => {
-        if(e.target.name === 'recurring'){
-            setRecurring(e.target.value);
-        }
+        const { name, value } = e.target;
+        setFormState({
+        ...formState,
+        [name]: value,
+        });
     };
-  
+
+    const handleFormSubmit = async (e) => {
+        e.preventDefault();
+
+        console.log(formState)
+
+        // Code to send to GraphQL
+
+        // clear form values
+        setFormState({
+            description: '',
+            category: '',
+            amount: '',
+            link: '',
+            date: '',
+            recurring: 'yes'
+        });
+
+    }
+    
     return (
     <div id="add-expense-overlay" className="overlay">
         <div id="add-expense" className="popup">
@@ -17,17 +38,40 @@ export default function AddExpense() {
             <div className="content">
                 <h1>Add Expense</h1>
                 <input
-                    // value={formState.description}
                     name="description"
                     onChange={handleChange}
                     type="text"
                     placeholder="Description"
                 />
-                <input type="text" placeholder="Description" /><br />
-                <input type="text" placeholder="Category" /><br />
-                <input type="text" placeholder="Amount (###.##)" /><br />
-                <input type="text" placeholder="Link" /><br />
-                <input type="text" placeholder="Due date (MM/DD/YYYY)" /><br />
+                <input
+                    // value={formState.category}
+                    type="text"
+                    name="category"
+                    onChange={handleChange}
+                    placeholder="Category"
+                /><br />
+                <input
+                    // value={formState.amount}
+                    type="text"
+                    name="amount"
+                    onChange={handleChange}
+                    placeholder="Amount (##.##)"
+                /><br />
+                <input
+                    // value={formState.link}
+                    type="text"
+                    name="link"
+                    onChange={handleChange}
+                    placeholder="Link"
+                /><br />
+                <input
+                    // value={formState.date}
+                    type="text"
+                    name="date"
+                    onChange={handleChange}
+                    placeholder="Due date (MM/DD/YYYY)"
+                /><br />
+
                 <div className="mt20">
                     Recurring Expense?&nbsp;
                     <input
@@ -36,7 +80,7 @@ export default function AddExpense() {
                         name="recurring"
                         value="yes"
                         onChange={handleChange}
-                        checked={recurring === 'yes'}
+                        checked={formState.recurring === 'yes'}
                     />&nbsp;Yes&nbsp;&nbsp;
                     <input
                         type="radio"
@@ -44,12 +88,12 @@ export default function AddExpense() {
                         name="recurring"
                         value="no"
                         onChange={handleChange}
-                        checked={recurring === 'no'}
+                        checked={formState.recurring === 'no'}
                     />&nbsp;No
                 </div>
 
                 <div className="center mt20">
-                    <button className="button-main">Add Expense</button>
+                    <button type="submit" onClick={handleFormSubmit} className="button-main">Add Expense</button>
                 </div>
             </div>
         </div>
