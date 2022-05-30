@@ -52,6 +52,13 @@ const Signup = () => {
       });
 
       Auth.login(data.addUser.token);
+      // clear form values
+      setFormState({
+        username: '',
+        email: '',
+        password: '',
+      });
+
     } catch (error) {
       if (error instanceof Error) {
         if(error.message.indexOf('duplicate') !== -1 && (error.message.indexOf('username') !== -1)){
