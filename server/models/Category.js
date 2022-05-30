@@ -1,4 +1,4 @@
-const { Schema, model } = require('mongoose');
+const { Schema } = require('mongoose');
 
 const categorySchema = new Schema ({
     name: {
@@ -6,7 +6,5 @@ const categorySchema = new Schema ({
       trim: true
     }
 });
-
-//const Category = model('Category', categorySchema)
 
 module.exports = categorySchema;
