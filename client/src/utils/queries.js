@@ -44,7 +44,7 @@ export const QUERY_USER = gql`
 `;
 
 export const QUERY_EXPENSES  = gql`
-    query expenses($username: String) {
+    query expenses($username: String!) {
         expenses(username: $username) {
             _id
             description
