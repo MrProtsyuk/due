@@ -48,7 +48,7 @@ const  Login = (props) => {
 
             <div className="center">
                 <input
-                    // value={this.state.email}
+                    value={formState.email}
                     name="email"
                     onChange={handleChange}
                     type="text"
@@ -56,7 +56,7 @@ const  Login = (props) => {
                 />
                     
                 <input
-                    // value={this.state.password}
+                    value={formState.password}
                     name="password"
                     onChange={handleChange}
                     type="password"
