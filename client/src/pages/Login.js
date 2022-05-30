@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { LOGIN_USER } from '../utils/mutations';
 import { Link } from 'react-router-dom';
-
 import Auth from '../utils/auth';
+import { validateEmail } from '../utils/helpers';
 
 const  Login = (props) => {
   const [formState, setFormState] = useState({ email: '', password: '' });
     const [login, { error }] = useMutation(LOGIN_USER);
+    const [err, setErr] = useState('');
     
   // update state based on form input changes
   const handleChange = (event) => {
@@ -22,21 +23,36 @@ const  Login = (props) => {
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
+    // Validation
+    if(!validateEmail(formState.email)){
+      setErr('You must enter a valid email address');
+      return;
+    }
+
+    if(!formState.password){
+      setErr('You must enter a password');
+      return;
+    }
+
     try {
       const { data } = await login({
         variables: { ...formState },
       });
 
       Auth.login(data.login.token);
-    } catch (err) {
-      console.error(err);
-    }
 
-    // clear form values
-    setFormState({
-      email: '',
-      password: '',
-    });
+      // clear form values
+      setFormState({
+        email: '',
+        password: '',
+      });
+    } catch (error) {
+      if (error instanceof Error) {
+        if(error.message.indexOf('credential') != -1){
+          setErr('User not found')
+        }
+      }
+    }
   };
 
   return (
@@ -73,9 +89,9 @@ const  Login = (props) => {
         </div>
     </form>
 
-    {error && (
+    {err && (
         <div className="error-text">
-            {error}
+            {err}
         </div>
     )}
     </>
