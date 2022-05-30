@@ -64,6 +64,11 @@ h2{
   padding:10px;
 }
 
+.error-text{
+  text-align:center;
+  color:red;
+}
+
 /* End of Universal CSS */
 
 /* Navigation */
