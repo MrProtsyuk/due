@@ -44,28 +44,24 @@ export default function EditExpense() {
                     placeholder="Description"
                 />
                 <input
-                    // value={formState.category}
                     type="text"
                     name="category"
                     onChange={handleChange}
                     placeholder="Category"
                 /><br />
                 <input
-                    // value={formState.amount}
                     type="text"
                     name="amount"
                     onChange={handleChange}
                     placeholder="Amount (##.##)"
                 /><br />
                 <input
-                    // value={formState.link}
                     type="text"
                     name="link"
                     onChange={handleChange}
                     placeholder="Link"
                 /><br />
                 <input
-                    // value={formState.date}
                     type="text"
                     name="date"
                     onChange={handleChange}
