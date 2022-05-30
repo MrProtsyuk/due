@@ -46,6 +46,14 @@ const Signup = () => {
 
             <div className="center">
                 <input
+                    value={formState.username}
+                    name="username"
+                    onChange={handleChange}
+                    type="text"
+                    placeholder="Username"
+                />
+
+                <input
                     value={formState.email}
                     name="email"
                     onChange={handleChange}
