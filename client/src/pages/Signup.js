@@ -40,7 +40,7 @@ const Signup = () => {
 
   return (
     <>
-    <form>
+    <form onSubmit={handleFormSubmit}>
         <div id="login">
             <h2>Sign Up</h2>
 
@@ -63,7 +63,7 @@ const Signup = () => {
             </div>
 
             <div className="center mt20">
-                <button className="button-main" onClick={handleFormSubmit}>Sign Up</button>
+                <button type="submit" className="button-main">Sign Up</button>
             </div>
 
             <div className="mt10 center">

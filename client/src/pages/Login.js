@@ -41,7 +41,7 @@ const  Login = (props) => {
 
   return (
     <>
-    <form>
+    <form onSubmit={handleFormSubmit}>
         <div id="login">
             <h2>Login</h2>
 
@@ -64,7 +64,7 @@ const  Login = (props) => {
             </div>
 
             <div className="center mt20">
-                <button className="button-main" onClick={handleFormSubmit}>Login</button>
+                <button type="submit" className="button-main">Login</button>
             </div>
 
             <div className="mt10 center">
