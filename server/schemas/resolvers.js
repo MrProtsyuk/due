@@ -72,7 +72,22 @@ const resolvers = {
       }
 
       throw new AuthenticationError('You need to be logged in!')
+    },
+    addCategory: async (parent, args, context) => {
+      if (context.user) {
+        const category = await Category.create({ ...args, username: context.user.username });
+
+        await User.findByIdAndUpdate(
+          { _id: context.user._id },
+          { $push: { category: category._id } },
+          { new: true }
+        )
+        return category;
+      }
+
+      throw new AuthenticationError('You need to be logged in!')
     }
+
   }
 }
 

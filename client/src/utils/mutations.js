@@ -28,11 +28,20 @@ export const ADD_EXPENSE  = gql`
     mutation addExpense($description: String!, $amount: Int!, $link: String!) {
         addExpense(description: $description, amount: $amount, link: $link) {
             _id
-            description
-            date
-            amount
-            link
-            category
+            username
+            email
+            userCategory {
+                _id
+                name
+            }
+            userExpense {
+                _id
+                description
+                date
+                amount
+                link
+                category
+            }
         }
     }
 `;
@@ -41,7 +50,20 @@ export const ADD_CATEGORY  = gql`
     mutation addCategory($name: String!) {
         addCategory(name: $name) {
             _id
-            name
+            username
+            email
+            userCategory {
+                _id
+                name
+            }
+            userExpense {
+                _id
+                description
+                date
+                amount
+                link
+                category
+            }
         }
     }
 `;
