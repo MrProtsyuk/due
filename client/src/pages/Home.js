@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
+import AddExpense from '../components/AddExpense'
+import EditExpense from '../components/EditExpense'
 
 import Auth from '../utils/auth'
 import { useQuery } from '@apollo/client';
@@ -10,6 +12,13 @@ export default function Home() {
     const expenses = data?.expenses || [];
 
     const loggedIn = Auth.loggedIn();
+
+    // Set state for radio in edit-expense overlay
+    const [radio, setRadio] = useState('current');
+
+    const handleChange = (e) => {
+        setRadio(e.target.value);
+    };
 
     return (
          <main> 
@@ -82,51 +91,9 @@ export default function Home() {
                 </div>
             </section>
     
-            <div id="add-expense-overlay" className="overlay">
-                <div id="add-expense" className="popup">
-                    <a className="close" href="#" title="Close">&times;</a>
-                    <div className="content">
-                        <h1>Add Expense</h1>
-                        <input type="text" placeholder="Description" /><br />
-                        <input type="text" placeholder="Category" /><br />
-                        <input type="text" placeholder="Amount (###.##)" /><br />
-                        <input type="text" placeholder="Link" /><br />
-                        <input type="text" placeholder="Due date (MM/DD/YYYY)" /><br />
-                        <div className="mt20">
-                            Recurring Expense?&nbsp;
-                            <input type="radio" id="yes" name="recurring" value="yes" checked />&nbsp;Yes&nbsp;&nbsp;
-                            <input type="radio" id="no" name="recurring" value="no" />&nbsp;No
-                        </div>
-    
-                        <div className="center mt20">
-                            <button className="button-main">Add Expense</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-    
-            <div id="edit-expense-overlay" className="overlay">
-                <div id="edit-expense" className="popup">
-                    <a className="close" href="#" title="Close">&times;</a>
-                    <div className="content">
-                        <h1>Update Expense</h1>
-                        <input type="text" placeholder="Description" /><br />
-                        <input type="text" placeholder="Category" /><br />
-                        <input type="text" placeholder="Amount" /><br />
-                        <input type="text" placeholder="Link" /><br />
-                        <input type="text" placeholder="Due date (MM/DD/YYYY)" /><br />
-                        <div className="mt20">
-                            Apply changes to:<br />
-                            <input type="radio" id="future" name="changes" value="future" checked />&nbsp;This and all future months<br />
-                            <input type="radio" id="current" name="changes" value="current" />&nbsp;Only this month
-                        </div>
-                    </div>
-    
-                    <div className="center mt20">
-                        <button className="button-main">Update Expense</button>
-                    </div>
-                </div>
-            </div>
+            <AddExpense />
+
+            <EditExpense />
     
         </main>
       )
