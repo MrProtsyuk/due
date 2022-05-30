@@ -14,7 +14,7 @@ const Header = () => {
     <header>
       <nav>
         <div>
-         <img src={process.env.PUBLIC_URL + '/images/money.png'} height={25} /> 
+         <img src={process.env.PUBLIC_URL + '/images/money.png'} height={25} alt='moneybag' /> 
         </div>
         
         <ul>
