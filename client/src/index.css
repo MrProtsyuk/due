@@ -107,6 +107,11 @@ main{
   margin:0 auto;
 }
 
+form, main{
+  max-width:1200px;
+  margin:0 auto;
+}
+
 h1.main-logo{
   margin-top:10px;
   font-weight:700;

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { ADD_USER } from '../utils/mutations';
+import { Link } from 'react-router-dom';
 
 import Auth from '../utils/auth';
 
@@ -38,10 +39,46 @@ const Signup = () => {
   };
 
   return (
-    <main>
-      {/* jon's jsx here */}
-    </main>
-  );
+    <>
+    <form>
+        <div id="login">
+            <h2>Sign Up</h2>
+
+            <div className="center">
+                <input
+                    // value={this.state.email}
+                    name="email"
+                    onChange={handleChange}
+                    type="text"
+                    placeholder="Email Address"
+                />
+                    
+                <input
+                    // value={this.state.password}
+                    name="password"
+                    onChange={handleChange}
+                    type="password"
+                    placeholder='Password'
+                />
+            </div>
+
+            <div className="center mt20">
+                <button className="button-main" onClick={handleFormSubmit}>Sign Up</button>
+            </div>
+
+            <div className="mt10 center">
+                Already have an account? <Link to='/login'>Log in here</Link>
+            </div>
+        </div>
+    </form>
+
+    {error && (
+        <div className="error-text">
+            {error}
+        </div>
+    )}
+    </>
+)
 };
 
 export default Signup;
