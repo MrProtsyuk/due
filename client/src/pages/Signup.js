@@ -54,10 +54,10 @@ const Signup = () => {
       Auth.login(data.addUser.token);
     } catch (error) {
       if (error instanceof Error) {
-        if(error.message.indexOf('duplicate') != -1 && (error.message.indexOf('username') != -1)){
+        if(error.message.indexOf('duplicate') !== -1 && (error.message.indexOf('username') !== -1)){
           setErr('Username already exists')
         }
-        if(error.message.indexOf('duplicate') != -1 && (error.message.indexOf('email') != -1)){
+        if(error.message.indexOf('duplicate') !== -1 && (error.message.indexOf('email') !== -1)){
           setErr('Email already exists')
         }
       }
