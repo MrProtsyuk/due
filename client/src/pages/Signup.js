@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { ADD_USER } from '../utils/mutations';
 import { Link } from 'react-router-dom';
-
 import Auth from '../utils/auth';
+import { validateEmail, checkPassword } from '../utils/helpers';
 
 const Signup = () => {
   const [formState, setFormState] = useState({
@@ -11,6 +11,8 @@ const Signup = () => {
     email: '',
     password: '',
   });
+
+  const [err, setErr] = useState('');
   const [addUser, { error }] = useMutation(ADD_USER);
 
   // update state based on form input changes
@@ -23,9 +25,26 @@ const Signup = () => {
     });
   };
 
-  // submit form
+  // Form Submit
   const handleFormSubmit = async (event) => {
     event.preventDefault();
+
+    // Validation
+    if(!formState.username){
+      setErr('Enter a valid username');
+      return;
+    }
+
+    if(!validateEmail(formState.email)){
+      setErr('Enter a valid email');
+      return;
+    }
+
+    if(!checkPassword(formState.password)){
+      setErr('Password must be between 5-20 chars long');
+      return;
+    }
+    // End of Validation
 
     try {
       const { data } = await addUser({
@@ -33,8 +52,15 @@ const Signup = () => {
       });
 
       Auth.login(data.addUser.token);
-    } catch (err) {
-      console.error(err);
+    } catch (error) {
+      if (error instanceof Error) {
+        if(error.message.indexOf('duplicate') != -1 && (error.message.indexOf('username') != -1)){
+          setErr('Username already exists')
+        }
+        if(error.message.indexOf('duplicate') != -1 && (error.message.indexOf('email') != -1)){
+          setErr('Email already exists')
+        }
+      }
     }
   };
 
@@ -80,9 +106,9 @@ const Signup = () => {
         </div>
     </form>
 
-    {error && (
+    {err && (
         <div className="error-text">
-            {error}
+            {err}
         </div>
     )}
     </>
