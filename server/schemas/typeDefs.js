@@ -16,7 +16,7 @@ const typeDefs = gql`
     amount: Int
     link: String
     category: String
-    recurring: Boolean
+    recurring: String
   }
 
   type Query {
