@@ -16,6 +16,7 @@ const typeDefs = gql`
     amount: Int
     link: String
     category: String
+    recurring: Boolean
   }
 
   type Query {
@@ -34,7 +35,7 @@ const typeDefs = gql`
   type Mutation {
     login(email: String!, password: String!): Auth
     addUser(username: String!, email: String!, password: String!): Auth
-    addExpense(description: String!, amount: Int!, category: String, link: String!): User
+    addExpense(description: String!, amount: Int!, category: String, link: String!, recurring: Boolean!): User
   }
 `;
 

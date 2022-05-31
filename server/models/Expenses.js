@@ -26,6 +26,10 @@ const expensesSchema = new Schema ({
     },
     category: {
         type: String
+    },
+    recurring: {
+        type: Boolean,
+        reqired: true
     }
 });
 
