@@ -47,13 +47,13 @@ export default function AddExpense() {
             setErr('You must enter a valid date');
             return;
         }
+
+        console.log(formState);
     
         try {
             const { data } = await addExpense({
             variables: { ...formState },
             });
-    
-            //Auth.login(data.login.token);
     
             // clear form values
             setFormState({
@@ -67,7 +67,7 @@ export default function AddExpense() {
         } catch (error) {
             if (error instanceof Error) {
             console.log(error.message)
-            //console.error(error)
+            console.error(error)
             // if(error.message.indexOf('credential') != -1){
             //     setErr('User not found')
             // }

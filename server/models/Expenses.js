@@ -28,7 +28,7 @@ const expensesSchema = new Schema ({
         type: String
     },
     recurring: {
-        type: Boolean,
+        type: String,
         reqired: true
     }
 });
