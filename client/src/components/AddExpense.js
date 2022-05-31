@@ -1,7 +1,11 @@
 import React, { useState } from 'react'
+import { useMutation } from '@apollo/client';
+import { ADD_EXPENSE } from '../utils/mutations';
 
 export default function AddExpense() {
     const [formState, setFormState] = useState({ description: '', category: '', amount: '', link: '', date: '', recurring: 'yes' });
+    const [err, setErr] = useState('');
+    const [addExpense, { error }] = useMutation(ADD_EXPENSE);
 
     // update state based on form input changes
     const handleChange = (e) => {
@@ -15,20 +19,60 @@ export default function AddExpense() {
     const handleFormSubmit = async (e) => {
         e.preventDefault();
 
-        console.log(formState)
+        // Validation
+        if(!formState.description){
+            setErr('You must enter a description');
+            return;
+        }
+    
+        if(!formState.category){
+            setErr('You must enter a category');
+            return;
+        }
 
-        // Code to send to GraphQL
+        // Need to add Validate amount 
+        if(!formState.amount){
+            setErr('You must enter a valid amount');
+            return;
+        }
 
-        // clear form values after GraphQL stuff
-        // setFormState({
-        //     description: '',
-        //     category: '',
-        //     amount: '',
-        //     link: '',
-        //     date: '',
-        //     recurring: 'yes'
-        // });
+        // Need to add Validate link 
+        if(!formState.link){
+            setErr('You must enter a valid link');
+            return;
+        }
 
+        // Need to add Validate date 
+        if(!formState.date){
+            setErr('You must enter a valid date');
+            return;
+        }
+    
+        try {
+            const { data } = await addExpense({
+            variables: { ...formState },
+            });
+    
+            //Auth.login(data.login.token);
+    
+            // clear form values
+            setFormState({
+            description: '',
+            category: '',
+            amount: '',
+            link: '',
+            date: '',
+            recurring: 'yes'
+            });
+        } catch (error) {
+            if (error instanceof Error) {
+            console.log(error.message)
+            //console.error(error)
+            // if(error.message.indexOf('credential') != -1){
+            //     setErr('User not found')
+            // }
+            }
+        }
     }
     
     return (
@@ -60,7 +104,7 @@ export default function AddExpense() {
                         type="text"
                         name="link"
                         onChange={handleChange}
-                        placeholder="Link"
+                        placeholder="Link (http://www.link.com)"
                     /><br />
                     <input
                         type="text"
@@ -92,9 +136,17 @@ export default function AddExpense() {
                     <div className="center mt20">
                         <button type="submit" className="button-main">Add Expense</button>
                     </div>
+
+                    {err && (
+                        <div className="error-text mt10">
+                            {err}
+                        </div>
+                    )}
                 </div>
             </div>
         </form>
+
+        
     </div>
     
   )
