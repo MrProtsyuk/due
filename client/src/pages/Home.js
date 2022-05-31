@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import AddExpense from '../components/AddExpense'
 import EditExpense from '../components/EditExpense'
+//import { useNavigate } from 'react-router-dom'
 
 import Auth from '../utils/auth'
 import { useQuery } from '@apollo/client';
@@ -12,6 +13,12 @@ export default function Home() {
     const expenses = data?.expenses || [];
 
     const loggedIn = Auth.loggedIn();
+
+    if(!loggedIn){
+        console.log('not logged in')
+        //navigate('/login');
+        window.location.assign('/login');
+    }
 
     // Set state for radio in edit-expense overlay
     const [radio, setRadio] = useState('current');
