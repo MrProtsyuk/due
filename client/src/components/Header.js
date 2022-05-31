@@ -19,8 +19,16 @@ const Header = () => {
         
         <ul>
           <li><Link to="/">Home</Link></li>
-          <li><Link to="/login">Login</Link></li>
-          <li><Link to="/signup">Sign Up</Link></li>
+          { localStorage.getItem('id_token')
+            ? <li><span onClick={logout}>Logout</span></li>
+            : <>
+              <li><Link to="/login">Login</Link></li>
+              <li><Link to="/signup">Sign Up</Link></li>
+              </>
+          }
+
+              
+          
         </ul>
       </nav>
     </header>
