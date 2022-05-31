@@ -48,11 +48,12 @@ export default function AddExpense() {
             return;
         }
 
-        console.log(formState);
+        //console.log(formState);
     
         try {
             const { data } = await addExpense({
-            variables: { ...formState },
+            // variables: { ...formState },
+            variables: { description: formState.description, category: formState.category, amount: parseFloat(formState.amount), link: formState.link, date: formState.date, recurring: formState.recurring}
             });
     
             // clear form values
@@ -67,7 +68,7 @@ export default function AddExpense() {
         } catch (error) {
             if (error instanceof Error) {
             console.log(error.message)
-            console.error(error)
+            //console.error(error)
             // if(error.message.indexOf('credential') != -1){
             //     setErr('User not found')
             // }
