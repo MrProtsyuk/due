@@ -29,7 +29,7 @@ const expensesSchema = new Schema ({
     },
     recurring: {
         type: String,
-        reqired: true
+        required: true
     }
 });
 
