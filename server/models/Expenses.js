@@ -1,7 +1,12 @@
-const { Schema } = require('mongoose');
+const mongoose = require('mongoose');
+const { Schema } = mongoose;
 
 const expensesSchema = new Schema ({
-
+    userId: {
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+        required: true,
+    },
     description: {
         type: String,
         required: true,
@@ -20,11 +25,8 @@ const expensesSchema = new Schema ({
         type: String,
     },
     category: {
-        type: Schema.Types.ObjectId,
-        ref: 'Category',
-        required: true
+        type: String
     }
 });
-
 
 module.exports = expensesSchema;

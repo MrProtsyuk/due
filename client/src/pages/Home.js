@@ -69,9 +69,9 @@ export default function Home() {
                         <div className="col"></div>
                         <div className="col">
                             <a href="#edit-expense-overlay" title="Update Expense">
-                                <img src={process.env.PUBLIC_URL + '/images/pencil.png'} /> 
+                                <img src={process.env.PUBLIC_URL + '/images/pencil.png'} alt='edit' /> 
                             </a>&nbsp;&nbsp;&nbsp;
-                            <img src={process.env.PUBLIC_URL + '/images/trash3.png'} /> 
+                            <img src={process.env.PUBLIC_URL + '/images/trash3.png'} alt='delete' /> 
                         </div>
                     </div>
     
@@ -90,9 +90,9 @@ export default function Home() {
                         </div>
                         <div className="col">
                             <a href="#edit-expense-overlay" title="Update Expense">
-                                <img src={process.env.PUBLIC_URL + '/images/pencil.png'} /> 
+                                <img src={process.env.PUBLIC_URL + '/images/pencil.png'} alt='edit' /> 
                             </a>&nbsp;&nbsp;&nbsp;
-                            <img src={process.env.PUBLIC_URL + '/images/trash3.png'} /> 
+                            <img src={process.env.PUBLIC_URL + '/images/trash3.png'} alt='delete' /> 
                         </div>
                     </div>
                 </div>

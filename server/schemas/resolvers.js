@@ -1,29 +1,20 @@
 const { AuthenticationError } = require('apollo-server-express')
-const { User, Expenses, Category } = require('../models/index')
+const { User, Expenses } = require('../models/index')
 const { signToken } = require('../utils/auth');
 
 const resolvers = {
   Query: {
-    categories: async () => {
-      return await Category.find();
-    },
-    expenses: async (parent, { description, category }) => {
+    expenses: async (parent, { description }) => {
       const params = {};
 
-      if (category) {
-        params.category = category;
-      }
-
       if (description) {
-        params.description = {
-          $regex: description
-        }
+        params.description = description
       }
 
-      return await Expenses.find(params).populate('category')
+      return await Expenses.find(params)
     },
     expense: async (parent, { _id }) => {
-      return await Expenses.findById(_id).populate('category')
+      return await Expenses.findById(_id)
     },
     users: async () => {
       return User.find()
@@ -69,20 +60,6 @@ const resolvers = {
           { new: true }
         )
         return expense;
-      }
-
-      throw new AuthenticationError('You need to be logged in!')
-    },
-    addCategory: async (parent, args, context) => {
-      if (context.user) {
-        const category = await Category.create({ ...args, username: context.user.username });
-
-        await User.findByIdAndUpdate(
-          { _id: context.user._id },
-          { $push: { category: category._id } },
-          { new: true }
-        )
-        return category;
       }
 
       throw new AuthenticationError('You need to be logged in!')

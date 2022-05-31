@@ -3,8 +3,7 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose
 const bcrypt = require('bcrypt');
 
-//import Category and Expenses
-const Category = require('./Category');
+//import Expenses
 const expensesSchema = require('./Expenses');
 
 const userSchema = new Schema(
@@ -25,7 +24,6 @@ const userSchema = new Schema(
             required: true,
             minlength: 5
         },
-        userCategory: [Category],
         userExpenses: [expensesSchema],
     }
 );
