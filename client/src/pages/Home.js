@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import AddExpense from '../components/AddExpense'
 import EditExpense from '../components/EditExpense'
-//import { useNavigate } from 'react-router-dom'
 
 import Auth from '../utils/auth'
 import { useQuery } from '@apollo/client';
@@ -16,7 +15,6 @@ export default function Home() {
 
     if(!loggedIn){
         console.log('not logged in')
-        //navigate('/login');
         window.location.assign('/login');
     }
 
