@@ -3,9 +3,6 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose
 const bcrypt = require('bcrypt');
 
-//import Expenses
-const expensesSchema = require('./Expenses');
-
 const userSchema = new Schema(
     {
         username: {
@@ -24,7 +21,12 @@ const userSchema = new Schema(
             required: true,
             minlength: 5
         },
-        userExpenses: [expensesSchema],
+        userExpenses: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: 'Expenses'
+            }
+        ],
     }
 );
 console.log(userSchema);
