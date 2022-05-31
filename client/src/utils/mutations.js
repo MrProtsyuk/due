@@ -27,20 +27,24 @@ export const ADD_USER  = gql`
 export const ADD_EXPENSE  = gql`
     mutation addExpense(
         $description: String!
+        $category: String
         $amount: Int! 
-        $link: String! 
-        $recurring: Boolean!
+        $link: String
+        $date: String!
+        $recurring: String!
         ) {
         addExpense(
-            description: $description 
+            description: $description
+            category: $category
             amount: $amount 
             link: $link 
+            date: $date
             recurring: $recurring
         ) {
             _id
             username
             email
-            userExpense {
+            userExpenses {
                 _id
                 description
                 date

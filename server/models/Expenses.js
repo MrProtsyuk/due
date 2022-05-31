@@ -11,9 +11,8 @@ const expensesSchema = new Schema ({
         type: String,
         required: true,
     },
-    date: {
-        type: Date,
-        required: true,
+    category: {
+        type: String
     },
     amount: {
         type: Number,
@@ -24,8 +23,9 @@ const expensesSchema = new Schema ({
     link: {
         type: String,
     },
-    category: {
-        type: String
+    date: {
+        type: Date,
+        required: true,
     },
     recurring: {
         type: String,
