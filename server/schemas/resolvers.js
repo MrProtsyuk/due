@@ -4,8 +4,16 @@ const { signToken } = require('../utils/auth');
 
 const resolvers = {
   Query: {
-    expenses: async (parent, { description }) => {
+    expenses: async (parent, { description, date, recurring }) => {
       const params = {};
+
+      if (date) {
+        params.date = date
+      }
+
+      if (recurring) {
+        params.recurring = recurring
+      }
 
       if (description) {
         params.description = description
