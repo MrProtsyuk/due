@@ -60,11 +60,11 @@ const resolvers = {
     },
     addExpense: async (parent, args, context) => {
       if (context.user) {
-        const expense = await Expenses.create({ ...args, username: context.user.username });
+        const expense = await Expenses.create({ ...args, userId: context.user._id });
 
         await User.findByIdAndUpdate(
           { _id: context.user._id },
-          { $push: { expenses: expense._id } },
+          { $push: { userExpenses: expense._id } },
           { new: true }
         )
         return expense;

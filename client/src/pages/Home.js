@@ -7,9 +7,16 @@ import { useQuery } from '@apollo/client';
 import { QUERY_ME, QUERY_EXPENSES } from '../utils/queries';
 
 export default function Home() {
-    const { loading, data } = useQuery(QUERY_EXPENSES);
-    const { data: userData } = useQuery(QUERY_ME);
-    const expenses = data?.expenses || [];
+    const { loading, error, data } = useQuery(QUERY_EXPENSES);
+    //const { data: userData } = useQuery(QUERY_ME);
+    //const expenses = data?.expenses || [];
+    // if (loading){
+    //     console.log('loading')
+    // }
+  
+    //if (error) return `Error! ${error.message}`;
+
+    //console.log(data)
 
     const loggedIn = Auth.loggedIn();
 
@@ -95,6 +102,14 @@ export default function Home() {
                     </div>
                 </div>
             </section>
+
+            {/* <select>
+                {data.expenses.map((expense) => (
+                    <option key={expense.description} value={expense.description}>
+                    {expense.description}
+                    </option>
+                ))}
+            </select> */}
     
             <AddExpense />
 
