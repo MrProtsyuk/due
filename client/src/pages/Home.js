@@ -7,18 +7,19 @@ import { useQuery } from '@apollo/client';
 import { QUERY_ME, QUERY_EXPENSES } from '../utils/queries';
 
 export default function Home() {
-    const { loading, error, data } = useQuery(QUERY_EXPENSES);
-    //const { data: userData } = useQuery(QUERY_ME);
-    //const expenses = data?.expenses || [];
-    // if (loading){
-    //     console.log('loading')
-    // }
-  
-    //if (error) return `Error! ${error.message}`;
+    
+    const { data:userData } = useQuery(QUERY_ME);
 
-    //console.log(data)
+    console.log(userData)
+
+    const { loading, error, data } = useQuery(QUERY_EXPENSES, {variables: {username: userData.me.username}});
+
+    const expenses = data?.expenses || [];
+    
+    console.log(expenses)
 
     const loggedIn = Auth.loggedIn();
+
 
     if(!loggedIn){
         console.log('not logged in')
@@ -80,37 +81,33 @@ export default function Home() {
                         </div>
                     </div>
     
-                    <div className="table-row">
-                        <div className="col">Rent</div>
-                        <div className="col">Household</div>
-                        <div className="col">$1,200</div>
-                        <div className="col">May 1st</div>
-                        <div className="col">
-                            <label className="checkbox">
-                                <input type="checkbox" />
-                            </label>
+                    
+                    {expenses.map((expense) => (
+                        <div className="table-row">
+                            <div className="col">{expense.description}</div>
+                            <div className="col">{expense.category}</div>
+                            <div className="col">${expense.amount}</div>
+                            <div className="col">{expense.date}</div>
+                            <div className="col">
+                                <label className="checkbox">
+                                    <input type="checkbox" />
+                                </label>
+                            </div>
+                            <div className="col">
+                                <a href={expense.link} target="_blank">Pay *make conditional*</a>
+                            </div>
+                            <div className="col">
+                                <a href="#edit-expense-overlay" title="Update Expense">
+                                    <img src={process.env.PUBLIC_URL + '/images/pencil.png'} alt='edit' /> 
+                                </a>&nbsp;&nbsp;&nbsp;
+                                <img src={process.env.PUBLIC_URL + '/images/trash3.png'} alt='delete' /> 
+                            </div>
                         </div>
-                        <div className="col">
-                            <a href="www.pay.com" target="_blank">Pay</a>
-                        </div>
-                        <div className="col">
-                            <a href="#edit-expense-overlay" title="Update Expense">
-                                <img src={process.env.PUBLIC_URL + '/images/pencil.png'} alt='edit' /> 
-                            </a>&nbsp;&nbsp;&nbsp;
-                            <img src={process.env.PUBLIC_URL + '/images/trash3.png'} alt='delete' /> 
-                        </div>
-                    </div>
+                    ))}
+                    
                 </div>
             </section>
 
-            {/* <select>
-                {data.expenses.map((expense) => (
-                    <option key={expense.description} value={expense.description}>
-                    {expense.description}
-                    </option>
-                ))}
-            </select> */}
-    
             <AddExpense />
 
             <EditExpense />
