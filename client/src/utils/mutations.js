@@ -25,15 +25,21 @@ export const ADD_USER  = gql`
 `;
 
 export const ADD_EXPENSE  = gql`
-    mutation addExpense($description: String!, $amount: Int!, $link: String!) {
-        addExpense(description: $description, amount: $amount, link: $link) {
+    mutation addExpense(
+        $description: String!
+        $amount: Int! 
+        $link: String! 
+        $recurring: Boolean!
+        ) {
+        addExpense(
+            description: $description 
+            amount: $amount 
+            link: $link 
+            recurring: $recurring
+        ) {
             _id
             username
             email
-            userCategory {
-                _id
-                name
-            }
             userExpense {
                 _id
                 description
@@ -41,28 +47,7 @@ export const ADD_EXPENSE  = gql`
                 amount
                 link
                 category
-            }
-        }
-    }
-`;
-
-export const ADD_CATEGORY  = gql`
-    mutation addCategory($name: String!) {
-        addCategory(name: $name) {
-            _id
-            username
-            email
-            userCategory {
-                _id
-                name
-            }
-            userExpense {
-                _id
-                description
-                date
-                amount
-                link
-                category
+                recurring               
             }
         }
     }

@@ -6,10 +6,6 @@ export const QUERY_ME = gql`
             _id
             username
             email
-            userCategory {
-                _id
-                name
-            }
             userExpenses {
                 _id
                 description
@@ -17,16 +13,8 @@ export const QUERY_ME = gql`
                 amount
                 link
                 category
+                recurring
             }
-        }
-    }
-`;
-
-export const QUERY_CATEGORIES = gql`
-    query categories($name: String!) {
-        categories(name: $name) {
-            _id
-            name
         }
     }
 `;
@@ -37,7 +25,6 @@ export const QUERY_USER = gql`
             _id
             username
             email
-            userCategory
             userExpenses
         }
     }
@@ -52,6 +39,7 @@ export const QUERY_EXPENSES  = gql`
             amount
             link
             category
+            recurring
         }
 
     }
@@ -66,6 +54,7 @@ export const QUERY_EXPENSE  = gql`
             amount
             link
             category
+            recurring
         }
     }
 `;
