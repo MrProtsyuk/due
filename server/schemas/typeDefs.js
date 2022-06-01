@@ -17,6 +17,7 @@ const typeDefs = gql`
     link: String
     category: String
     recurring: String
+    paid: Boolean
   }
 
   type Query {

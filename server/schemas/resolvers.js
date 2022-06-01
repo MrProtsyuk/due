@@ -92,8 +92,10 @@ const resolvers = {
           { _id: context.user._id },
           { userExpenses },
           { new: true }
-        )
+        );
       }
+
+      throw new AuthenticationError('You need to be logged in!')
     }
 
   }

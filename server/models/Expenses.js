@@ -30,6 +30,10 @@ const expensesSchema = new Schema ({
     recurring: {
         type: String,
         required: true
+    },
+    paid: {
+        type: Boolean,
+        default: false
     }
 });
 

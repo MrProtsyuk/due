@@ -51,7 +51,8 @@ export const ADD_EXPENSE  = gql`
                 amount
                 link
                 category
-                recurring               
+                recurring   
+                paid            
             }
         }
     }
@@ -68,8 +69,26 @@ export const REMOVE_EXPENSE = gql`
                 amount
                 link
                 category
-                recurring     
+                recurring
+                paid     
             }
         }
     }
 `;
+
+export const EDIT_EXPENSE = gql`
+    mutation editExpense($_id: ID!) {
+        editExpense(_id: $_id) {
+            username
+            userExpenses {
+                description
+                date
+                amount
+                link
+                category
+                recurring   
+                paid      
+            }
+        }
+    }
+`
