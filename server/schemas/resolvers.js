@@ -41,8 +41,8 @@ const resolvers = {
         .select('-__v -password')
         .populate('expenses')
     },
-    user: async (parent, { username }) => {
-      return User.findOne({ username })
+    user: async (parent, { _id }) => {
+      return User.findOne({ _id })
         .select('-__v -password')
         .populate('expenses')
     }
