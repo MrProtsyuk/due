@@ -59,7 +59,7 @@ const resolvers = {
     },
     addExpense: async (parent, args, context) => {
       if (context.user) {
-        const expense = await Expenses.create({ ...args, userId: context.user._id });
+        const expense = await Expenses.create({ ...args, paid: false, userId: context.user._id });
 
         // await User.findByIdAndUpdate(
         //   { _id: context.user._id },

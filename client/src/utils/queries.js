@@ -40,6 +40,7 @@ export const QUERY_EXPENSES  = gql`
             link
             category
             recurring
+            paid
         }
 
     }
@@ -55,6 +56,7 @@ export const QUERY_EXPENSE  = gql`
             link
             category
             recurring
+            paid
         }
     }
 `;
