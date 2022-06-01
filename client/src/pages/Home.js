@@ -8,19 +8,19 @@ import { useQuery } from '@apollo/client';
 import { QUERY_ME, QUERY_EXPENSES } from '../utils/queries';
 
 export default function Home() {
-    const [radio, setRadio] = useState('current');
-    
-    const { loading, error, data } = useQuery(QUERY_ME);
-
-    if (loading) return 'Loading...';
-    if (error) return `Error! ${error.message}`;
-
     const loggedIn = Auth.loggedIn();
 
     if(!loggedIn){
         console.log('not logged in')
         window.location.assign('/login');
     }
+    
+    const [radio, setRadio] = useState('current');
+    
+    const { loading, error, data } = useQuery(QUERY_ME);
+
+    if (loading) return 'Loading...';
+    if (error) return `Error! ${error.message}`;
 
     const handleChange = (e) => {
         setRadio(e.target.value);
