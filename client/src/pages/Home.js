@@ -5,7 +5,7 @@ import Expenses from '../components/Expenses'
 
 import Auth from '../utils/auth'
 import { useQuery, useMutation } from '@apollo/client';
-import { QUERY_ME, QUERY_EXPENSES } from '../utils/queries';
+import { QUERY_ME } from '../utils/queries';
 import { REMOVE_EXPENSE } from "../utils/mutations";
 
 
@@ -17,17 +17,11 @@ export default function Home() {
         window.location.assign('/login');
     }
     
-    const [radio, setRadio] = useState('current');
-    
     const { loading, data } = useQuery(QUERY_ME);
     const [ removeExpense, { error } ] = useMutation(REMOVE_EXPENSE)
 
     if (loading) return 'Loading...';
     if (error) return `Error! ${error.message}`;
-
-    const handleChange = (e) => {
-        setRadio(e.target.value);
-    };
 
     return (
          <main> 
@@ -48,37 +42,7 @@ export default function Home() {
                 </div>
                 
                 <div className="responsive-table">
-                    <div className="table-header">
-                        <div className="col">Description</div>
-                        <div className="col">Category</div>
-                        <div className="col">Amt</div>
-                        <div className="col">Due</div>
-                        <div className="col">Paid</div>
-                        <div className="col">Link</div>
-                        <div className="col">Actions</div>
-                    </div>
-                    
-                    <div className="table-row">
-                        <div className="col">Example Row</div>
-                        <div className="col">None</div>
-                        <div className="col">$126.82</div>
-                        <div className="col">May 28th</div>
-                        <div className="col">
-                            <label className="checkbox">
-                                <input type="checkbox" />
-                            </label>
-                        </div>
-                        <div className="col"></div>
-                        <div className="col">
-                            <a href="#edit-expense-overlay" title="Update Expense">
-                                <img src={process.env.PUBLIC_URL + '/images/pencil.png'} alt='edit' /> 
-                            </a>&nbsp;&nbsp;&nbsp;
-                            <img src={process.env.PUBLIC_URL + '/images/trash3.png'} alt='delete' /> 
-                        </div>
-                    </div>
-
                     <Expenses username={data.me.username} />
-    
                 </div>
             </section>
 
