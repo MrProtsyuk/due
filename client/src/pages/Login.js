@@ -48,7 +48,7 @@ const  Login = (props) => {
       });
     } catch (error) {
       if (error instanceof Error) {
-        if(error.message.indexOf('credential') != -1){
+        if(error.message.indexOf('credential') !== -1){
           setErr('User not found')
         }
       }
