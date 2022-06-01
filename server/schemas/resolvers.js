@@ -1,6 +1,7 @@
 const { AuthenticationError } = require('apollo-server-express')
 const { User, Expenses } = require('../models/index')
 const { signToken } = require('../utils/auth');
+const mongoose = require('mongoose');
 
 const resolvers = {
   Query: {
@@ -16,22 +17,10 @@ const resolvers = {
 
       throw new AuthenticationError('Not logged in');
     },
-    expenses: async (parent, { description, date, amount }) => {
-      const params = {};
-
-      if (date) {
-        params.date = date
+    expenses: async (parent, args, context) => {
+      if(context.user){
+        return await Expenses.find({ userId: new mongoose.Types.ObjectId(context.user._id) })
       }
-
-      if (amount) {
-        params.amount = amount
-      }
-
-      if (description) {
-        params.description = description
-      }
-
-      return await Expenses.find(params)
     },
     expense: async (parent, { _id }) => {
       return await Expenses.findById(_id)
