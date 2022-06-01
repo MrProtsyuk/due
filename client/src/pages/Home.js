@@ -1,33 +1,26 @@
 import React, { useState } from "react";
 import AddExpense from '../components/AddExpense'
 import EditExpense from '../components/EditExpense'
+import Expenses from '../components/Expenses'
 
 import Auth from '../utils/auth'
 import { useQuery } from '@apollo/client';
 import { QUERY_ME, QUERY_EXPENSES } from '../utils/queries';
 
 export default function Home() {
+    const [radio, setRadio] = useState('current');
     
-    const { data:userData } = useQuery(QUERY_ME);
+    const { loading, error, data } = useQuery(QUERY_ME);
 
-    console.log(userData)
-
-    const { loading, error, data } = useQuery(QUERY_EXPENSES, {variables: {username: userData.me.username}});
-
-    const expenses = data?.expenses || [];
-    
-    console.log(expenses)
+    if (loading) return 'Loading...';
+    if (error) return `Error! ${error.message}`;
 
     const loggedIn = Auth.loggedIn();
-
 
     if(!loggedIn){
         console.log('not logged in')
         window.location.assign('/login');
     }
-
-    // Set state for radio in edit-expense overlay
-    const [radio, setRadio] = useState('current');
 
     const handleChange = (e) => {
         setRadio(e.target.value);
@@ -80,9 +73,11 @@ export default function Home() {
                             <img src={process.env.PUBLIC_URL + '/images/trash3.png'} alt='delete' /> 
                         </div>
                     </div>
+
+                    <Expenses username={data.me.username} />
     
                     
-                    {expenses.map((expense) => (
+                    {/* {expenses.map((expense) => (
                         <div className="table-row">
                             <div className="col">{expense.description}</div>
                             <div className="col">{expense.category}</div>
@@ -103,7 +98,7 @@ export default function Home() {
                                 <img src={process.env.PUBLIC_URL + '/images/trash3.png'} alt='delete' /> 
                             </div>
                         </div>
-                    ))}
+                    ))} */}
                     
                 </div>
             </section>
