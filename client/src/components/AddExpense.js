@@ -66,10 +66,6 @@ export default function AddExpense() {
         } catch (error) {
             if (error instanceof Error) {
             console.log(error.message)
-            //console.error(error)
-            // if(error.message.indexOf('credential') != -1){
-            //     setErr('User not found')
-            // }
             }
         }
     }

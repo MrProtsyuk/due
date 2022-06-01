@@ -59,14 +59,10 @@ const resolvers = {
     },
     addExpense: async (parent, args, context) => {
       if (context.user) {
-        const expense = await Expenses.create({ ...args, paid: false, userId: context.user._id });
+        const expense = await Expenses.create(
+          { ...args, paid: false, userId: context.user._id }
+        );
 
-        // await User.findByIdAndUpdate(
-        //   { _id: context.user._id },
-        //   // { _id: new mongoose.Types.ObjectId(context.user._id) },
-        //   { $push: { userExpenses: [{...args}]  }},
-        //   { new: true }
-        // )
         return expense;
       }
 
@@ -74,13 +70,16 @@ const resolvers = {
     },
     removeExpense: async (parent, { _id }, context) => {
       if (context.user) {
-        const updatedExpenses = await User.findOneAndUpdate(
-          { _id: context.user._id },
-          { $pull: { userExpenses: { _id } } },
-          { new: true }
-        );
+        console.log('deleting')
+        return await Expenses.deleteOne({_id})
+        
+        // const updatedExpenses = await User.findOneAndUpdate(
+        //   { _id: context.user._id },
+        //   { $pull: { userExpenses: { _id } } },
+        //   { new: true }
+        // );
 
-        return updatedExpenses
+        // return updatedExpenses
       }
       
       throw new AuthenticationError('You need to be logged in!')
