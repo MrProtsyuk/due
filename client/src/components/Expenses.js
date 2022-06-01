@@ -1,15 +1,38 @@
-import React from 'react'
-import { useQuery } from '@apollo/client';
+import React, { useState } from 'react'
+import { useQuery, useMutation } from '@apollo/client';
 import { QUERY_EXPENSES } from '../utils/queries';
+import { EDIT_EXPENSE } from '../utils/mutations';
 import moment from 'moment';
 
 export default function Expenses({username}) {
+    const [editExpense, { error2 }] = useMutation(EDIT_EXPENSE);
+
     const { loading, error, data } = useQuery(QUERY_EXPENSES, {variables: { username }});
 
     if (loading) return 'Loading...';
     if (error) return `Error! ${error.message}`;
 
     const expenses = data?.expenses || [];
+
+    //const [paid, setPaid] = useState(false);
+    
+
+    // update state based on form input changes
+    const payBill = async (e) => {
+
+        const id = e.target.getAttribute('data-id');
+        const payValue = e.target.checked
+
+        try {
+            const { data } = await editExpense({
+            variables: { _id: id, paid: payValue }
+            });
+        } catch (error2) {
+            if (error instanceof Error) {
+                console.log(error2.message)
+            }
+        }
+    };
 
     return (
         <>
@@ -22,7 +45,7 @@ export default function Expenses({username}) {
                 <div className="col">{ moment(new Date(expense.date)).format("MMM Do") }</div>
                 <div className="col">
                     <label className="checkbox">
-                        <input type="checkbox" />
+                        <input data-id={expense._id} name="paid" type="checkbox" onChange={payBill}/>
                     </label>
                 </div>
                 <div className="col">

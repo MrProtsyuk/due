@@ -20,8 +20,6 @@ export default function AddExpense() {
     const handleFormSubmit = async (e) => {
         e.preventDefault();
 
-        console.log(formState);
-
         // Description Validation
         if(!formState.description){
             setErr('You must enter a description');

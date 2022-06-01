@@ -85,11 +85,15 @@ const resolvers = {
       
       throw new AuthenticationError('You need to be logged in!')
     },
-    editExpense: async (parent, { _id, userExpenses } ) => {
+    editExpense: async (parent, args, context ) => {
       if (context.user) {
-        return await User.findByIdAndUpdate(
-          { _id: context.user._id },
-          { userExpenses },
+
+        // Remove _id property from args (Expense ID sent from Expenses object)
+        const { _id, ...newArgs } = args
+
+        return await Expenses.findByIdAndUpdate(
+          { _id: args._id },
+          newArgs,
           { new: true }
         );
       }
