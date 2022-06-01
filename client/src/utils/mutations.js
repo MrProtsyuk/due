@@ -63,17 +63,13 @@ export const ADD_EXPENSE  = gql`
 export const REMOVE_EXPENSE = gql`
     mutation removeExpense($_id: ID!) {
         removeExpense(_id: $_id) {
-            username
-            userExpenses {
-                _id
-                description
-                date
-                amount
-                link
-                category
-                recurring
-                paid     
-            }
+            description
+            date
+            amount
+            link
+            category
+            recurring
+            paid     
         }
     }
 `;
