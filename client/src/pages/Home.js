@@ -56,7 +56,7 @@ export default function Home() {
                     </div>
                     
                     <div className="table-row">
-                        <div className="col">Xfinity</div>
+                        <div className="col">Example Row</div>
                         <div className="col">None</div>
                         <div className="col">$126.82</div>
                         <div className="col">May 28th</div>
@@ -76,30 +76,6 @@ export default function Home() {
 
                     <Expenses username={data.me.username} />
     
-                    
-                    {/* {expenses.map((expense) => (
-                        <div className="table-row">
-                            <div className="col">{expense.description}</div>
-                            <div className="col">{expense.category}</div>
-                            <div className="col">${expense.amount}</div>
-                            <div className="col">{expense.date}</div>
-                            <div className="col">
-                                <label className="checkbox">
-                                    <input type="checkbox" />
-                                </label>
-                            </div>
-                            <div className="col">
-                                <a href={expense.link} target="_blank">Pay *make conditional*</a>
-                            </div>
-                            <div className="col">
-                                <a href="#edit-expense-overlay" title="Update Expense">
-                                    <img src={process.env.PUBLIC_URL + '/images/pencil.png'} alt='edit' /> 
-                                </a>&nbsp;&nbsp;&nbsp;
-                                <img src={process.env.PUBLIC_URL + '/images/trash3.png'} alt='delete' /> 
-                            </div>
-                        </div>
-                    ))} */}
-                    
                 </div>
             </section>
 
