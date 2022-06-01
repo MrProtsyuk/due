@@ -16,15 +16,15 @@ const resolvers = {
 
       throw new AuthenticationError('Not logged in');
     },
-    expenses: async (parent, { description, date, recurring }) => {
+    expenses: async (parent, { description, date, amount }) => {
       const params = {};
 
       if (date) {
         params.date = date
       }
 
-      if (recurring) {
-        params.recurring = recurring
+      if (amount) {
+        params.amount = amount
       }
 
       if (description) {

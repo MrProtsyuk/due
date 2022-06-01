@@ -56,7 +56,7 @@ export default function Home() {
                     </div>
                     
                     <div className="table-row">
-                        <div className="col">Xfinity</div>
+                        <div className="col">Example Row</div>
                         <div className="col">None</div>
                         <div className="col">$126.82</div>
                         <div className="col">May 28th</div>
