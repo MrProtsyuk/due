@@ -42,6 +42,16 @@ export default function Home() {
                 </div>
                 
                 <div className="responsive-table">
+                    <div className="table-header">
+                        <div className="col">Description</div>
+                        <div className="col">Category</div>
+                        <div className="col">Amt</div>
+                        <div className="col">Due</div>
+                        <div className="col">Paid</div>
+                        <div className="col">Link</div>
+                        <div className="col">Actions</div>
+                    </div>
+                    
                     <Expenses username={data.me.username} />
                 </div>
             </section>

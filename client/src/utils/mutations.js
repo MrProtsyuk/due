@@ -32,6 +32,7 @@ export const ADD_EXPENSE  = gql`
         $link: String
         $date: String!
         $recurring: String!
+        $paid: Boolean
         ) {
         addExpense(
             description: $description
@@ -40,6 +41,7 @@ export const ADD_EXPENSE  = gql`
             link: $link 
             date: $date
             recurring: $recurring
+            paid: $paid
         ) {
             _id
             username
