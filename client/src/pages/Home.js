@@ -4,8 +4,10 @@ import EditExpense from '../components/EditExpense'
 import Expenses from '../components/Expenses'
 
 import Auth from '../utils/auth'
-import { useQuery } from '@apollo/client';
+import { useQuery, useMutation } from '@apollo/client';
 import { QUERY_ME, QUERY_EXPENSES } from '../utils/queries';
+import { REMOVE_EXPENSE } from "../utils/mutations";
+
 
 export default function Home() {
     const loggedIn = Auth.loggedIn();
@@ -17,7 +19,8 @@ export default function Home() {
     
     const [radio, setRadio] = useState('current');
     
-    const { loading, error, data } = useQuery(QUERY_ME);
+    const { loading, data } = useQuery(QUERY_ME);
+    const [ removeExpense, { error } ] = useMutation(REMOVE_EXPENSE)
 
     if (loading) return 'Loading...';
     if (error) return `Error! ${error.message}`;

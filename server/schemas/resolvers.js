@@ -83,6 +83,28 @@ const resolvers = {
       }
 
       throw new AuthenticationError('You need to be logged in!')
+    },
+    removeExpense: async (parent, { _id }, context) => {
+      if (context.user) {
+        const updatedExpenses = await User.findOneAndUpdate(
+          { _id: context.user._id },
+          { $pull: { userExpenses: { _id } } },
+          { new: true }
+        );
+
+        return updatedExpenses
+      }
+      
+      throw new AuthenticationError('You need to be logged in!')
+    },
+    editExpense: async (parent, { _id, userExpenses } ) => {
+      if (context.user) {
+        return await User.findByIdAndUpdate(
+          { _id: context.user._id },
+          { userExpenses },
+          { new: true }
+        )
+      }
     }
 
   }
