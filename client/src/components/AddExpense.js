@@ -65,6 +65,8 @@ export default function AddExpense() {
             date: '',
             recurring: 'yes'
             });
+
+            window.location.assign('/');
         } catch (error) {
             if (error instanceof Error) {
             console.log(error.message)
