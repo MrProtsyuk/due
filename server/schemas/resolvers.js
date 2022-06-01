@@ -9,8 +9,6 @@ const resolvers = {
       if (context.user) {
         const userData = await User.findOne({ _id: context.user._id })
           .select('-__v -password')
-          // .populate('thoughts')
-          // .populate('friends');
 
         return userData;
       }
@@ -63,11 +61,12 @@ const resolvers = {
       if (context.user) {
         const expense = await Expenses.create({ ...args, userId: context.user._id });
 
-        await User.findByIdAndUpdate(
-          { _id: context.user._id },
-          { $push: { userExpenses: expense._id } },
-          { new: true }
-        )
+        // await User.findByIdAndUpdate(
+        //   { _id: context.user._id },
+        //   // { _id: new mongoose.Types.ObjectId(context.user._id) },
+        //   { $push: { userExpenses: [{...args}]  }},
+        //   { new: true }
+        // )
         return expense;
       }
 

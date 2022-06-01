@@ -1,6 +1,7 @@
 import React from 'react'
 import { useQuery } from '@apollo/client';
 import { QUERY_EXPENSES } from '../utils/queries';
+import moment from 'moment';
 
 export default function Expenses({username}) {
     const { loading, error, data } = useQuery(QUERY_EXPENSES, {variables: { username }});
@@ -17,7 +18,8 @@ export default function Expenses({username}) {
                 <div className="col">{expense.description}</div>
                 <div className="col">{expense.category}</div>
                 <div className="col">${expense.amount}</div>
-                <div className="col">{expense.date}</div>
+                {/* <div className="col">{ (new Date(expense.date)).toLocaleDateString() }</div> */}
+                <div className="col">{ moment(new Date(expense.date)).format("MMM Do") }</div>
                 <div className="col">
                     <label className="checkbox">
                         <input type="checkbox" />
