@@ -24,7 +24,7 @@ const expensesSchema = new Schema ({
         type: String,
     },
     date: {
-        type: Date,
+        type: String,
         required: true,
     },
     recurring: {
