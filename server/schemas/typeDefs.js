@@ -38,7 +38,7 @@ const typeDefs = gql`
     login(email: String!, password: String!): Auth
     addUser(username: String!, email: String!, password: String!): Auth
     addExpense(description: String!, category: String, amount: Int!, link: String, date: String!, recurring: String!, paid: Boolean): User
-    editExpense(_id: ID!): User
+    editExpense(_id: ID!, description: String, date: String, amount: Int, link: String, category: String, recurring: String, paid: Boolean): Expenses
     removeExpense(_id: ID!): User
   }
 `;
