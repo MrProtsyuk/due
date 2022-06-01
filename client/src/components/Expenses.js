@@ -24,7 +24,7 @@ export default function Expenses({username}) {
                     </label>
                 </div>
                 <div className="col">
-                    <a href={expense.link} target="_blank">Pay *make conditional*</a>
+                    {expense.link && <a href={expense.link} target="_blank">Pay</a>}
                 </div>
                 <div className="col">
                     <a href="#edit-expense-overlay" title="Update Expense">
