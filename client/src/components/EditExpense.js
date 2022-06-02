@@ -2,11 +2,27 @@ import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { EDIT_EXPENSE } from '../utils/mutations';
 
-export default function EditExpense(props) {
+export default function EditExpense({ expense }) {
     const [formState, setFormState] = useState({ description: '', category: '', amount: '', link: '', date: '', changes: 'current' });
-        const [editExpense, { error }] = useMutation(EDIT_EXPENSE);
+        
+    const [editExpense, { error }] = useMutation(EDIT_EXPENSE);
 
-        console.log(props)
+    console.log(expense)
+
+    const changeExpense = async () => {
+        console.log('called edit expense')
+        try {
+            await editExpense({
+            variables: { _id: expense._id }
+            });
+            window.location.assign('/');
+        } catch (error2) {
+            if (error2 instanceof Error) {
+                console.log(error2.message)
+            }
+        }
+    }
+
 
     // update state based on form input changes
     const handleChange = (e) => {
@@ -94,7 +110,7 @@ export default function EditExpense(props) {
                     </div>
                 </div>
 
-                <div className="center mt20" style={{cursor: 'pointer'}} onClick={editExpense} title='Edit Expense' >
+                <div className="center mt20" style={{cursor: 'pointer'}} onClick={changeExpense} title='Edit Expense' >
                 <button type="submit" className="button-main">Update Expense</button>
                 </div>
             </div>
