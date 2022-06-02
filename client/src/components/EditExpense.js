@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-export default function EditExpense() {
+export default function EditExpense(props) {
     const [formState, setFormState] = useState({ description: '', category: '', amount: '', link: '', date: '', changes: 'current' });
 
     // update state based on form input changes
