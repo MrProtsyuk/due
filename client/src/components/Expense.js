@@ -67,7 +67,7 @@ export default function Expense({ expense }) {
             <div className="col">
                 <a href="#edit-expense-overlay" title="Update Expense">
                     <img src={process.env.PUBLIC_URL + '/images/pencil.png'} alt='edit' /> 
-                </a>&nbsp;&nbsp;&nbsp;
+                </a>
                 <span style={{cursor:'pointer'}} onClick={deleteExpense} title="Delete Expense">
                     <img src={process.env.PUBLIC_URL + '/images/trash3.png'} alt='delete' />
                 </span>
