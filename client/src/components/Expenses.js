@@ -3,7 +3,7 @@ import { useQuery } from '@apollo/client';
 import { QUERY_EXPENSES } from '../utils/queries';
 import Expense from '../components/Expense'
 
-export default function Expenses({username}) {
+export default function Expenses({username, setExp}) {
     const { loading, error, data } = useQuery(QUERY_EXPENSES, {variables: { username }});
 
     if (loading) return 'Loading...';
@@ -15,7 +15,7 @@ export default function Expenses({username}) {
         <>
         {expenses.map((expense) => (
             <div className="table-row" key={expense._id}>
-                <Expense expense={expense} />
+                <Expense expense={expense} setExp={setExp} />
             </div>
         ))}
         </>

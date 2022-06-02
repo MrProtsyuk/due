@@ -70,22 +70,15 @@ const resolvers = {
     },
     removeExpense: async (parent, { _id }, context) => {
       if (context.user) {
-        console.log('deleting')
         return await Expenses.deleteOne({_id})
-        
-        // const updatedExpenses = await User.findOneAndUpdate(
-        //   { _id: context.user._id },
-        //   { $pull: { userExpenses: { _id } } },
-        //   { new: true }
-        // );
-
-        // return updatedExpenses
       }
       
       throw new AuthenticationError('You need to be logged in!')
     },
     editExpense: async (parent, args, context ) => {
       if (context.user) {
+
+        console.log('args received = ', args)
 
         // Remove _id property from args (Expense ID sent from Expenses object)
         const { _id, ...newArgs } = args
