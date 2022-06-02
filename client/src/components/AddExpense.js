@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useMutation } from '@apollo/client';
 import { ADD_EXPENSE } from '../utils/mutations';
+import { checkDate, isValidHttpUrl } from '../utils/helpers';
 
 export default function AddExpense() {
     const [formState, setFormState] = useState({ description: '', category: '', amount: '', link: '', date: '', recurring: 'yes' });
@@ -19,41 +20,36 @@ export default function AddExpense() {
     const handleFormSubmit = async (e) => {
         e.preventDefault();
 
-        // Validation
+        // Description Validation
         if(!formState.description){
             setErr('You must enter a description');
             return;
         }
     
-        if(!formState.category){
-            setErr('You must enter a category');
+        // Category not required
+
+        // Amount Validation - skips on second round for some reason
+        if(!Number.isInteger(parseInt(formState.amount))){
+            setErr('You must enter a valid amount with no decimal');
             return;
         }
 
-        // Need to add Validate amount 
-        if(!formState.amount){
-            setErr('You must enter a valid amount');
-            return;
-        }
-
-        // Need to add Validate link 
-        if(!formState.link){
+        // Link Validation
+        if(!isValidHttpUrl(formState.link)){
             setErr('You must enter a valid link');
             return;
         }
 
-        // Need to add Validate date 
-        if(!formState.date){
+        // Date Validation
+        if(!checkDate(formState.date)){
             setErr('You must enter a valid date');
             return;
         }
 
-        //console.log(formState);
-    
         try {
             const { data } = await addExpense({
             // variables: { ...formState },
-            variables: { description: formState.description, category: formState.category, amount: parseFloat(formState.amount), link: formState.link, date: formState.date, recurring: formState.recurring}
+            variables: { description: formState.description, category: formState.category, amount: parseInt(formState.amount), link: formState.link, date: formState.date, recurring: formState.recurring}
             });
     
             // clear form values
@@ -70,10 +66,6 @@ export default function AddExpense() {
         } catch (error) {
             if (error instanceof Error) {
             console.log(error.message)
-            //console.error(error)
-            // if(error.message.indexOf('credential') != -1){
-            //     setErr('User not found')
-            // }
             }
         }
     }
@@ -101,7 +93,7 @@ export default function AddExpense() {
                         type="text"
                         name="amount"
                         onChange={handleChange}
-                        placeholder="Amount (##.##)"
+                        placeholder="Amount (no decimal)"
                     /><br />
                     <input
                         type="text"

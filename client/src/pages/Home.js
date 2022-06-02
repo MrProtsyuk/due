@@ -8,8 +8,12 @@ import { useQuery, useMutation } from '@apollo/client';
 import { QUERY_ME } from '../utils/queries';
 import { REMOVE_EXPENSE } from "../utils/mutations";
 
-
 export default function Home() {
+    
+    // Global single expense state for edit expense modal
+    // Passed as props down to expense and expenses
+    const [exp, setExp] = useState({ _id: '', description: 'jon', category: '', amount: '', link: '', date: '', recurring: 'yes' });
+
     const loggedIn = Auth.loggedIn();
 
     if(!loggedIn){
@@ -24,7 +28,7 @@ export default function Home() {
     if (error) return `Error! ${error.message}`;
 
     return (
-         <main> 
+        <main> 
             <section className="list">
                 <div className="flex-wrapper">
                     <div>
@@ -42,14 +46,24 @@ export default function Home() {
                 </div>
                 
                 <div className="responsive-table">
-                    <Expenses username={data.me.username} />
+                    <div className="table-header">
+                        <div className="col">Description</div>
+                        <div className="col">Category</div>
+                        <div className="col">Amt</div>
+                        <div className="col">Due</div>
+                        <div className="col">Paid</div>
+                        <div className="col">Link</div>
+                        <div className="col">Actions</div>
+                    </div>
+                    
+                    <Expenses username={data.me.username} setExp={setExp} />
                 </div>
             </section>
-
+            
             <AddExpense />
+            
+            <EditExpense exp={exp} setExp={setExp}/>
 
-            <EditExpense />
-    
         </main>
       )
 }

@@ -9,8 +9,6 @@ const resolvers = {
       if (context.user) {
         const userData = await User.findOne({ _id: context.user._id })
           .select('-__v -password')
-          // .populate('thoughts')
-          // .populate('friends');
 
         return userData;
       }
@@ -61,13 +59,10 @@ const resolvers = {
     },
     addExpense: async (parent, args, context) => {
       if (context.user) {
-        const expense = await Expenses.create({ ...args, userId: context.user._id });
+        const expense = await Expenses.create(
+          { ...args, paid: false, userId: context.user._id }
+        );
 
-        await User.findByIdAndUpdate(
-          { _id: context.user._id },
-          { $push: { userExpenses: expense._id } },
-          { new: true }
-        )
         return expense;
       }
 
@@ -75,22 +70,20 @@ const resolvers = {
     },
     removeExpense: async (parent, { _id }, context) => {
       if (context.user) {
-        const updatedExpenses = await User.findOneAndUpdate(
-          { _id: context.user._id },
-          { $pull: { userExpenses: { _id } } },
-          { new: true }
-        );
-
-        return updatedExpenses
+        return await Expenses.deleteOne({_id})
       }
       
       throw new AuthenticationError('You need to be logged in!')
     },
-    editExpense: async (parent, { _id, userExpenses } ) => {
+    editExpense: async (parent, args, context ) => {
       if (context.user) {
-        return await User.findByIdAndUpdate(
-          { _id: context.user._id },
-          { userExpenses },
+
+        // Remove _id property from args (Expense ID sent from Expenses object)
+        const { _id, ...newArgs } = args
+
+        return await Expenses.findByIdAndUpdate(
+          { _id: args._id },
+          newArgs,
           { new: true }
         );
       }

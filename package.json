@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/MrProtsyuk/due#readme",
   "dependencies": {
-    "concurrently": "^7.2.1"
+    "concurrently": "^7.2.1",
+    "moment": "^2.29.3"
   }
 }

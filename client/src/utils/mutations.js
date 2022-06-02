@@ -32,6 +32,7 @@ export const ADD_EXPENSE  = gql`
         $link: String
         $date: String!
         $recurring: String!
+        $paid: Boolean
         ) {
         addExpense(
             description: $description
@@ -40,6 +41,7 @@ export const ADD_EXPENSE  = gql`
             link: $link 
             date: $date
             recurring: $recurring
+            paid: $paid
         ) {
             _id
             username
@@ -61,34 +63,27 @@ export const ADD_EXPENSE  = gql`
 export const REMOVE_EXPENSE = gql`
     mutation removeExpense($_id: ID!) {
         removeExpense(_id: $_id) {
-            username
-            userExpenses {
-                _id
-                description
-                date
-                amount
-                link
-                category
-                recurring
-                paid     
-            }
+            description
+            date
+            amount
+            link
+            category
+            recurring
+            paid     
         }
     }
 `;
 
 export const EDIT_EXPENSE = gql`
-    mutation editExpense($_id: ID!) {
-        editExpense(_id: $_id) {
-            username
-            userExpenses {
-                description
-                date
-                amount
-                link
-                category
-                recurring   
-                paid      
-            }
+    mutation editExpense($_id: ID!, $description: String, $date: String, $amount: Int, $link: String, $category: String, $recurring: String, $paid: Boolean) {
+        editExpense(_id: $_id, description: $description, date: $date, amount: $amount, link: $link, category: $category, recurring: $recurring, paid: $paid) {
+            description
+            date
+            amount
+            link
+            category
+            recurring   
+            paid      
         }
     }
 `

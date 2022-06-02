@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useQuery } from '@apollo/client';
 import { QUERY_EXPENSES } from '../utils/queries';
+import Expense from '../components/Expense'
 
-export default function Expenses({username}) {
+export default function Expenses({username, setExp}) {
     const { loading, error, data } = useQuery(QUERY_EXPENSES, {variables: { username }});
 
     if (loading) return 'Loading...';
@@ -10,28 +11,28 @@ export default function Expenses({username}) {
 
     const expenses = data?.expenses || [];
 
+      
+    const sortCallback = (arrayItemA, arrayItemB) => {
+    if (arrayItemA.date < arrayItemB.date) {
+        return -1
+    }
+    
+    if (arrayItemA.date > arrayItemB.date) {
+        return 1
+    }
+    
+    return 0
+    }
+      
+    //expenses.sort(sortCallback);
+    
+    // expenses = expenses.sort((a, b) => (a.description > b.description) ? 1 : -1)
+
     return (
         <>
         {expenses.map((expense) => (
             <div className="table-row" key={expense._id}>
-                <div className="col">{expense.description}</div>
-                <div className="col">{expense.category}</div>
-                <div className="col">${expense.amount}</div>
-                <div className="col">{expense.date}</div>
-                <div className="col">
-                    <label className="checkbox">
-                        <input type="checkbox" />
-                    </label>
-                </div>
-                <div className="col">
-                    {expense.link && <a href={expense.link} target="bill">Pay</a>}
-                </div>
-                <div className="col">
-                    <a href="#edit-expense-overlay" title="Update Expense">
-                        <img src={process.env.PUBLIC_URL + '/images/pencil.png'} alt='edit' /> 
-                    </a>&nbsp;&nbsp;&nbsp;
-                    <img src={process.env.PUBLIC_URL + '/images/trash3.png'} alt='delete' /> 
-                </div>
+                <Expense expense={expense} setExp={setExp} />
             </div>
         ))}
         </>
