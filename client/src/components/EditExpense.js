@@ -49,7 +49,7 @@ export default function EditExpense({ exp, setExp }) {
 
         try {
             const { data } = await editExpense({
-            variables: { _id: exp._id, description: exp.description, category: exp.category, amount: exp.amount, link: exp.link, date: exp.date, recurring: exp.recurring, paid: exp.paid }
+            variables: { _id: exp._id, description: exp.description, category: exp.category, amount: parseInt(exp.amount), link: exp.link, date: exp.date, recurring: exp.recurring, paid: exp.paid }
         });
             
         } catch (error2) {
