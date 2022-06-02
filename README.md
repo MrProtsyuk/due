@@ -1,7 +1,7 @@
 # due
 <h1 align="center">
   <a href="https://github.com/dec0dOS/amazing-github-template">
-    <img src="assets/images/moneyicon.png" alt="Logo" width="125" height="125">
+    <img src="client/public/images/moneyicon.png" alt="Logo" width="125" height="125">
   </a>
 </h1>
 
@@ -10,7 +10,6 @@
 
 - [About](#about)
 - [Built With](#built-with)
-- [Installation](#Installation)
 - [ScreenShots](#ScreenShots)
 - [Prerequisites](#Prerequisites)
 - [Usage](#usage)
