@@ -283,12 +283,27 @@ input[type="text"], input[type="password"]{
 
 
 /* New Expense */
-#add-expense input[type="text"], #edit-expense input[type="text"]{
+#add-expense input[type="text"]{ 
   margin-top:20px;
   display:inline-block;
   width:250px;
 }
 
+
+#edit-expense label{
+  margin-top:12px;
+  padding-left:2px;
+  display:inline-block;
+  width:250px;
+  text-align:left;
+  font-weight:500;
+}
+
+#edit-expense input[type="text"]{
+  margin-top:5px;
+  display:inline-block;
+  width:250px;
+}
 
 /* End of New Expense */
 
@@ -501,9 +516,13 @@ button.active:hover{
       font-size:16px;
   }
 
-  #add-expense input[type="text"], #edit-expense input[type="text"]{
+  #add-expense input[type="text"]{ 
       width:90%;
       margin:20px auto 0 auto;
+  }
+
+  #edit-expense input[type="text"], #edit-expense label{
+    width:90%;
   }
 
   #add-expense button, #edit-expense button{

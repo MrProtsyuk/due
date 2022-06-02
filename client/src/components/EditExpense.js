@@ -1,40 +1,66 @@
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { EDIT_EXPENSE } from '../utils/mutations';
+import { checkDate, isValidHttpUrl } from '../utils/helpers';
 
-export default function EditExpense(props) {
-    const [formState, setFormState] = useState({ description: '', category: '', amount: '', link: '', date: '', changes: 'current' });
-        const [editExpense, { error }] = useMutation(EDIT_EXPENSE);
-
-
+export default function EditExpense({ exp, setExp }) {
+    const [editExpense, { error }] = useMutation(EDIT_EXPENSE);
+    const [err, setErr] = useState('');
+  
     // update state based on form input changes
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setFormState({
-        ...formState,
-        [name]: value,
+        setExp({
+            ...exp,
+            [name]: value,
         });
     };
 
     const handleFormSubmit = async (e) => {
         e.preventDefault();
 
-        console.log(formState)
+        // Description Validation
+        if(!exp.description){
+            setErr('You must enter a description');
+            return;
+        }
+    
+        // Category not required
 
-        // Code to send to GraphQL
+        // Amount Validation - skips on second round for some reason
+        if(!Number.isInteger(parseInt(exp.amount))){
+            setErr('You must enter a valid amount with no decimal');
+            return;
+        }
 
-        // clear form values after GraphQL stuff
-        // setFormState({
-        //     description: '',
-        //     category: '',
-        //     amount: '',
-        //     link: '',
-        //     date: '',
-        //     changes: 'current'
-        // });
+        // Link Validation
+        if(!isValidHttpUrl(exp.link)){
+            setErr('You must enter a valid link');
+            return;
+        }
 
+        // Date Validation
+        if(!checkDate(exp.date)){
+            setErr('You must enter a valid date');
+            return;
+        }
+
+        console.log ('sending ', exp)
+
+        try {
+            const { data } = await editExpense({
+            variables: { _id: exp._id, description: exp.description, category: exp.category, amount: exp.amount, link: exp.link, date: exp.date, recurring: exp.recurring, paid: exp.paid }
+        });
+            
+        } catch (error2) {
+            if (error2 instanceof Error) {
+                console.log(error2.message)
+            }
+        }
+
+        window.location.assign('/');
     }
- 
+
     return (
     <div id="edit-expense-overlay" className="overlay">
         <form onSubmit={handleFormSubmit}>
@@ -42,37 +68,47 @@ export default function EditExpense(props) {
                 <a className="close" href="#" title="Close">&times;</a>
                 <div className="content">
                     <h1>Update Expense</h1>
+                    <label>Description</label>
                     <input
+                        value={exp.description}
                         name="description"
                         onChange={handleChange}
                         type="text"
                         placeholder="Description"
                     />
+                    <label>Category</label>
                     <input
+                        value={exp.category}
                         type="text"
                         name="category"
                         onChange={handleChange}
                         placeholder="Category"
-                    /><br />
+                    />
+                    <label>Amount</label>
                     <input
+                        value={exp.amount}
                         type="text"
                         name="amount"
                         onChange={handleChange}
                         placeholder="Amount (##.##)"
-                    /><br />
+                    />
+                    <label>Link</label>
                     <input
+                        value={exp.link}
                         type="text"
                         name="link"
                         onChange={handleChange}
                         placeholder="Link"
-                    /><br />
+                    />
+                    <label>Date</label>
                     <input
+                        value={exp.date}
                         type="text"
                         name="date"
                         onChange={handleChange}
                         placeholder="Due date (MM/DD/YYYY)"
                     /><br />
-                    <div className="mt20">
+                    {/* <div className="mt20">
                         Apply changes to:<br />
                         <input
                             type="radio"
@@ -80,7 +116,7 @@ export default function EditExpense(props) {
                             name="changes"
                             value="future"
                             onChange={handleChange}
-                            checked={formState.changes === 'future'} 
+                            checked={exp.changes === 'future'} 
                         />&nbsp;This and all future months<br />
                         <input
                             type="radio"
@@ -88,14 +124,20 @@ export default function EditExpense(props) {
                             name="changes"
                             value="current"
                             onChange={handleChange}
-                            checked={formState.changes === 'current'} 
+                            checked={exp.changes === 'current'} 
                         />&nbsp;Only this month
-                    </div>
+                    </div> */}
                 </div>
 
-                <div className="center mt20" style={{cursor: 'pointer'}} onClick={editExpense} title='Edit Expense' >
-                <button type="submit" className="button-main">Update Expense</button>
+                <div className="center mt20">
+                    <button type="submit" className="button-main" title="Update Expense">Update Expense</button>
                 </div>
+
+                {err && (
+                    <div className="error-text mt10">
+                        {err}
+                    </div>
+                )}
             </div>
         </form>
     </div>
