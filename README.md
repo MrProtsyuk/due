@@ -10,7 +10,6 @@
 
 - [About](#about)
 - [Built With](#built-with)
-- [Installation](#Installation)
 - [ScreenShots](#ScreenShots)
 - [Prerequisites](#Prerequisites)
 - [Usage](#usage)
