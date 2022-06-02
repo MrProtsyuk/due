@@ -1,7 +1,7 @@
 {
   "name": "due",
   "version": "1.0.0",
-  "description": "",
+  "description": "bill tracker",
   "main": "index.js",
   "scripts": {
     "start": "node server/server.js",
