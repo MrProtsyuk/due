@@ -6,6 +6,7 @@ export default function EditExpense(props) {
     const [formState, setFormState] = useState({ description: '', category: '', amount: '', link: '', date: '', changes: 'current' });
         const [editExpense, { error }] = useMutation(EDIT_EXPENSE);
 
+        console.log(props)
 
     // update state based on form input changes
     const handleChange = (e) => {
