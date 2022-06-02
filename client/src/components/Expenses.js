@@ -11,6 +11,23 @@ export default function Expenses({username, setExp}) {
 
     const expenses = data?.expenses || [];
 
+      
+    const sortCallback = (arrayItemA, arrayItemB) => {
+    if (arrayItemA.date < arrayItemB.date) {
+        return -1
+    }
+    
+    if (arrayItemA.date > arrayItemB.date) {
+        return 1
+    }
+    
+    return 0
+    }
+      
+    //expenses.sort(sortCallback);
+    
+    // expenses = expenses.sort((a, b) => (a.description > b.description) ? 1 : -1)
+
     return (
         <>
         {expenses.map((expense) => (

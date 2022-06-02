@@ -78,8 +78,6 @@ const resolvers = {
     editExpense: async (parent, args, context ) => {
       if (context.user) {
 
-        console.log('args received = ', args)
-
         // Remove _id property from args (Expense ID sent from Expenses object)
         const { _id, ...newArgs } = args
 
