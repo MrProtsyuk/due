@@ -27,7 +27,7 @@
 <tr>
 <td>
 
-due is a a application that lets users track your expenses can save you time and money. In addition, tracking your expenses can provide you with financial awareness and insight into your daily, monthly spending habits, making your life a whole lot easier.
+due is an application that lets users track their expenses, which we hope will save users time and money, especially with rising inflation. In addition, tracking your expenses can provide you with financial awareness and insight into your daily, monthly spending habits, making life a whole lot easier.
 </details>
 
 </td>
@@ -44,7 +44,7 @@ https://due-ucd.herokuapp.com/
 - Node.js
 - Express.js
 - MongoDB 
-- Heroku 
+- React
 
 ## ScreenShots
 
