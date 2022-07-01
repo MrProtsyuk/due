@@ -65,5 +65,5 @@ export default function Home() {
             <EditExpense exp={exp} setExp={setExp}/>
 
         </main>
-      )
+    )
 }
