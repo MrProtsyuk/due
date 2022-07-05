@@ -34,7 +34,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 // Mark: Edited this, if it doesnt work then comment it out!
-app.get('*', (req, res) => {
+app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/build/index.html'));
 });
 

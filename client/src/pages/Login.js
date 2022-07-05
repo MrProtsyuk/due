@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import Auth from '../utils/auth';
 import { validateEmail } from '../utils/helpers';
 
-const  Login = (props) => {
+const  Login = () => {
   const [formState, setFormState] = useState({ email: '', password: '' });
     const [login] = useMutation(LOGIN_USER);
     const [err, setErr] = useState('');

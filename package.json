@@ -12,15 +12,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/MrProtsyuk/due.git"
+    "url": "git+https://github.com/RiderCogswell/due.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/MrProtsyuk/due/issues"
+    "url": "https://github.com/RiderCogswell/due/issues"
   },
-  "homepage": "https://github.com/MrProtsyuk/due#readme",
+  "homepage": "https://github.com/RiderCogswell/due#readme",
   "dependencies": {
     "concurrently": "^7.2.1",
     "moment": "^2.29.3"
